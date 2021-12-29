@@ -46,8 +46,17 @@ func TestReadAt(t *testing.T) {
 	const data = "hello, world\n"
 	io.WriteString(f, data)
 
+	// Test that a zero read does not return EOF.
+	// Not in upstream directly, but archive/zip's TestFS tests reading a zero length file.
+	// This behavior is a consequence of upstream ReadAt looping to handle partial reads.
+	// TODO: verify that ReadAt loops properly to complete reads interrupted by unix signals.
+	n, err := f.ReadAt(nil, 0)
+	if err != nil || n != 0 {
+		t.Fatalf("ReadAt 0: %d, %v", n, err)
+	}
+
 	b := make([]byte, 5)
-	n, err := f.ReadAt(b, 7)
+	n, err = f.ReadAt(b, 7)
 	if err != nil || n != len(b) {
 		t.Fatalf("ReadAt 7: %d, %v", n, err)
 	}
