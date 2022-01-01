@@ -527,7 +527,6 @@ build/release: tinygo gen-device wasi-libc binaryen
 	@mkdir -p build/release/tinygo/bin
 	@mkdir -p build/release/tinygo/lib/clang/include
 	@mkdir -p build/release/tinygo/lib/CMSIS/CMSIS
-	@mkdir -p build/release/tinygo/lib/compiler-rt/lib
 	@mkdir -p build/release/tinygo/lib/mingw-w64/mingw-w64-crt/lib-common
 	@mkdir -p build/release/tinygo/lib/mingw-w64/mingw-w64-headers/defaults
 	@mkdir -p build/release/tinygo/lib/musl/arch
@@ -546,9 +545,6 @@ build/release: tinygo gen-device wasi-libc binaryen
 	@cp -p $(abspath $(CLANG_SRC))/lib/Headers/*.h build/release/tinygo/lib/clang/include
 	@cp -rp lib/CMSIS/CMSIS/Include      build/release/tinygo/lib/CMSIS/CMSIS
 	@cp -rp lib/CMSIS/README.md          build/release/tinygo/lib/CMSIS
-	@cp -rp lib/compiler-rt/lib/builtins build/release/tinygo/lib/compiler-rt/lib
-	@cp -rp lib/compiler-rt/LICENSE.TXT  build/release/tinygo/lib/compiler-rt
-	@cp -rp lib/compiler-rt/README.txt   build/release/tinygo/lib/compiler-rt
 	@cp -rp lib/musl/arch/aarch64        build/release/tinygo/lib/musl/arch
 	@cp -rp lib/musl/arch/arm            build/release/tinygo/lib/musl/arch
 	@cp -rp lib/musl/arch/generic        build/release/tinygo/lib/musl/arch
@@ -584,6 +580,8 @@ build/release: tinygo gen-device wasi-libc binaryen
 	@cp -rp lib/picolibc/newlib/libm/common      build/release/tinygo/lib/picolibc/newlib/libm
 	@cp -rp lib/picolibc-stdio.c         build/release/tinygo/lib
 	@cp -rp lib/wasi-libc/sysroot        build/release/tinygo/lib/wasi-libc/sysroot
+	@cp -rp llvm-project/compiler-rt/lib/builtins build/release/tinygo/lib/compiler-rt-builtins
+	@cp -rp llvm-project/compiler-rt/LICENSE.TXT  build/release/tinygo/lib/compiler-rt-builtins
 	@cp -rp src                          build/release/tinygo/src
 	@cp -rp targets                      build/release/tinygo/targets
 	./build/tinygo build-library -target=armv6m-unknown-unknown-eabi  -o build/release/tinygo/pkg/armv6m-unknown-unknown-eabi/compiler-rt compiler-rt

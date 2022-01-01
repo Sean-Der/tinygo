@@ -27,10 +27,11 @@ commands:
           name: "Fetch LLVM source"
           command: make llvm-source
       - save_cache:
-          key: llvm-source-12-v1
+          key: llvm-source-12-v2
           paths:
             - llvm-project/clang/lib/Headers
             - llvm-project/clang/include
+            - llvm-project/compiler-rt
             - llvm-project/lld/include
             - llvm-project/llvm/include
   hack-ninja-jobs:
@@ -123,10 +124,11 @@ commands:
           name: "Fetch LLVM source"
           command: make llvm-source
       - save_cache:
-          key: llvm-source-12-macos-v1
+          key: llvm-source-12-macos-v2
           paths:
             - llvm-project/clang/lib/Headers
             - llvm-project/clang/include
+            - llvm-project/compiler-rt
             - llvm-project/lld/include
             - llvm-project/llvm/include
       - restore_cache:
